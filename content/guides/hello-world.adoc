@@ -261,9 +261,9 @@ service needs. This goes in the main directory `hello`:
 
 [[app-listing]]
 [source,clojure]
-.build.boot
+.deps.edn
 ----
-include::hello/build.boot[]
+include::hello/deps.edn[]
 ----
 <1> Tell Boot where our source code lives
 <2> Tell Boot we need three Pedestal libraries
@@ -296,18 +296,18 @@ Find by Name: (find-name "part-of-name-here")
     Examples from clojuredocs.org: [clojuredocs or cdoc]
               (user/clojuredocs name-here)
               (user/clojuredocs "ns-here" "name-here")
-boot.user=>
+user=>
 ----
 
 It's pretty safe to ignore all that output for now. The main thing to
-look for is the prompt that says `boot.user=>`. That shows you can
+look for is the prompt that says `user=>`. That shows you can
 input Clojure code to evaluate it (turn it into a value) and that
-you're currently in the `boot.user` namespace. We need to tell Clojure about our `hello` namespace:
+you're currently in the `user` namespace. We need to tell Clojure about our `hello` namespace:
 
 ----
-boot.user=> (require 'hello)
+user=> (require 'hello)
 nil
-boot.user=>
+user=>
 ----
 
 So Clojure apparently just burped 'nil' at us and came back to the
@@ -316,7 +316,7 @@ function returns nil, which Clojure printed for us.
 
 If you get a message like these:
 
- clojure.lang.Compiler$CompilerException: java.lang.RuntimeException: Unable to resolve symbol: hello in this context, compiling:(/tmp/boot.user164143164117124931.clj:1:1)
+ clojure.lang.Compiler$CompilerException: java.lang.RuntimeException: Unable to resolve symbol: hello in this context, compiling:(/tmp/user164143164117124931.clj:1:1)
  Unable to resolve symbol: hello in this context
 
 It means you missed the single-quote before "hello" in the require.
@@ -324,7 +324,7 @@ It means you missed the single-quote before "hello" in the require.
 You can check to see if your function got loaded:
 
 ----
-boot.user=> hello/respond-hello
+user=> hello/respond-hello
 #object[hello$respond_hello 0x2db5083a "hello$respond_hello@2db5083a"]
 ----
 
@@ -336,7 +336,7 @@ function. Like http://www.smbc-comics.com/?id=2491[Batman], our symbol
 had no parens.
 
 ----
-boot.user=> (hello/respond-hello {})
+user=> (hello/respond-hello {})
 {:status 200, :body "Hello, world!"}
 ----
 
@@ -372,15 +372,15 @@ route, but we'll get to that later.
 We still haven't hooked this up to an HTTP server, but we can still do some testing by hand:
 
 ----
-boot.user=> (require :reload 'hello)
+user=> (require :reload 'hello)
 nil
-boot.user=> (require '[io.pedestal.http.route :as route])
+user=> (require '[io.pedestal.http.route :as route])
 nil
-boot.user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :get)
+user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :get)
 {:path "/greet", :method :get, :path-re #"/\Qgreet\E", :path-parts ["greet"], :interceptors [#Interceptor{:name }], :route-name :greet, :path-params {}, :io.pedestal.http.route.prefix-tree/satisfies-constraints? #object[clojure.core$constantly$fn__6443 0x6182d451 "clojure.core$constantly$fn__6443@6182d451"]}
-boot.user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :post)
+user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :post)
 nil
-boot.user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :put)
+user=> (route/try-routing-for hello/routes :prefix-tree "/greet" :put)
 nil
 ----
 
@@ -424,9 +424,9 @@ include::hello/src/hello.clj[tags=server]
 All we need to do now is run it.
 
 ----
-boot.user=> (require :reload 'hello)
+user=> (require :reload 'hello)
 nil
-boot.user=> (hello/start)
+user=> (hello/start)
 ----
 
 Yep, it didn't return. Jetty is running and listening for connections,
@@ -478,9 +478,9 @@ include::hello/src/hello.clj[tags=server]
 
 [[app-listing]]
 [source,clojure,subs="-callouts"]
-.build.boot
+.deps.edn
 ----
-include::hello/build.boot[]
+include::hello/deps.edn[]
 ----
 
 You can also see all the code in the Github repository for

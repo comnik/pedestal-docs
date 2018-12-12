@@ -305,13 +305,13 @@ We are using a new namespace here, which will eventually let us write JSON data.
 That is how Clojure tells you it is missing a library. By looking at
 the library's https://github.com/clojure/data.json[project page], we see that the latest stable release is
 "0.2.6" (at least, it is when this guide is being written!). We can
-add the library in the dependencies part of our `build.boot` file:
+add the library in the dependencies part of our `deps.edn` file:
 
 [[app-listing]]
 [source,clojure]
-.build.boot
+.deps.edn
 ----
-include::hello-content/build.boot[]
+include::hello-content/deps.edn[]
 ----
 
 Any time you change the dependencies, you will definitely need to

@@ -111,12 +111,12 @@ Find by Name: (find-name "part-of-name-here")
     Examples from clojuredocs.org: [clojuredocs or cdoc]
               (user/clojuredocs name-here)
               (user/clojuredocs "ns-here" "name-here")
-boot.user=> (require 'hello)
+user=> (require 'hello)
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
 nil
-boot.user=> (hello/start)
+user=> (hello/start)
 ----
 
 Then from another window, we can send a request
@@ -438,9 +438,9 @@ include::hello-query/src/hello.clj[tags=server]
 
 [[app-listing]]
 [source,clojure,subs="-callouts"]
-.build.boot
+.deps.edn
 ----
-include::hello-query/build.boot[]
+include::hello-query/deps.edn[]
 ----
 
 == The Path So Far
